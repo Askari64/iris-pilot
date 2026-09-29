@@ -12,6 +12,7 @@ The Python script (`etl.py`) acts as the transformation layer, pulling from stag
 ## 2. Idempotency & Conflict Resolution
 To survive automated orchestration (like Apache Airflow or Cron), the ELT pipeline is designed to be 100% idempotent—running it once or 1,000 times yields the exact same database state.
 * **Compound Unique Keys**: Every core table enforces uniqueness via a natural compound key: `UNIQUE (country_code, source_id)`.
+* **source_id semantics**: `source_id` is the upstream row identifier as delivered by the source (e.g. `PARCEL-GB-01`); provenance to the source dataset is carried by `evidence` and `source_run`.
 * **Upsert Logic**: The Python pipeline utilizes PostgreSQL's `ON CONFLICT (country_code, source_id) DO UPDATE` to safely update spatial geometries and metadata if a pipeline reruns, preventing duplicate data accumulation.
 * **Sequence Management**: Seed scripts dynamically recalculate `setval` identity sequences to prevent auto-increment collisions during testing and resets.
 

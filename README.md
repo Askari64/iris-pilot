@@ -12,7 +12,7 @@ A production-grade PostGIS database and ELT pipeline designed to evaluate candid
 
 ## Project Structure
 * `/migrations/`: SQL scripts to initialize the `iris_staging` and `iris_core` schemas, tables, and constraints.
-* `/seeds/`: Deterministic test data (`fixtures.sql`) mapping out real-world coordinates in the UK and Germany.
+* `/seeds/`:Deterministic test data (`fixtures.sql`). Staging fixtures demonstrate the ETL promotion path; core is also seeded directly with deterministic reference rows so verification queries and tests have stable targets.
 * `/scripts/`: PowerShell automation for database resets (`reset_db.ps1`) and Python ELT logic (`etl.py`).
 * `/tests/`: Automated unit tests (`test_correctness.py`) verifying spatial constraints and database integrity.
 * `verify_queries.sql`: Manual spatial queries demonstrating GiST index usage, distance calculations, and polygon intersections.
