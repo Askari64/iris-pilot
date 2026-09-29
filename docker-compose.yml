@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  db:
+    # Using the official PostGIS image (PostgreSQL 16 + PostGIS 3)
+    image: postgis/postgis:16-3.4
+    container_name: iris-db
+    environment:
+      POSTGRES_DB: iris
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      # Persists database data even if the container is restarted
+      - iris_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  iris_data:
