@@ -2,6 +2,8 @@
 
 A production-grade PostGIS database and ELT pipeline designed to evaluate candidate land parcels for renewable energy sites based on strict spatial constraints (grid proximity, flood zones, and protected habitats).
 
+**Architecture & Decisions:** Please see DESIGN.md for the core architecture choices, ELT idempotency rules, and the schema diagram.
+
 ## Tech Stack
 * **Database**: PostgreSQL 16 + PostGIS 3.4
 * **Pipeline**: Python 3.13 (`psycopg3`)
