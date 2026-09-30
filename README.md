@@ -19,13 +19,19 @@ A production-grade PostGIS database and ELT pipeline designed to evaluate candid
 
 ## Quick Start
 
-### 1. Start the Database Infrastructure
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Askari64/iris-pilot.git
+cd iris-pilot
+```
+
+### 2. Start the Database Infrastructure
 Ensure Docker Desktop is running, then spin up the PostGIS container:
 ```powershell
 docker-compose up -d
 ```
 
-### 2. Initialize the Python Environment
+### 3. Initialize the Python Environment
 Create a virtual environment and install the required dependencies:
 
 **Windows (PowerShell):**
@@ -42,7 +48,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Build and Seed the Database
+### 4. Build and Seed the Database
 Run the automated reset script to tear down existing schemas, apply migrations, build GiST indexes, and load the raw staging fixtures:
 
 **Windows (PowerShell):**
@@ -55,19 +61,19 @@ Run the automated reset script to tear down existing schemas, apply migrations, 
 bash scripts/reset_db.sh
 ```
 
-### 4. Run the ELT Pipeline
+### 5. Run the ELT Pipeline
 Execute the data loader to promote the raw data from `iris_staging` to `iris_core`. This script safely standardizes European date formats, enforces SRID locks, and uses idempotency (`ON CONFLICT DO UPDATE`) to prevent duplication:
 ```powershell
 python scripts/etl.py
 ```
 
-### 5. Verify Constraints
+### 6. Verify Constraints
 Run the test suite to programmatically verify that PostGIS is strictly enforcing MultiPolygon types, SRID 4326, and compound unique constraints:
 ```powershell
 pytest tests/test_correctness.py -v
 ```
 
-### 6. Manual Spatial Verification
+### 7. Manual Spatial Verification
 To execute the manual verification queries demonstrating GiST index usage, distance calculations, and polygon intersections:
 
 **Windows (PowerShell):**
